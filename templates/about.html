@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Stock Price Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-chart-line text-2xl mr-2"></i>
+                        <span class="text-xl font-semibold">StockPredict</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="/" class="text-blue-100 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="/about" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">About Stock Price Predictor</h1>
+            <p class="text-xl text-gray-600">Making stock market predictions accessible to everyone</p>
+        </div>
+
+        <div class="bg-white shadow rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4">How It Works</h2>
+            <p class="text-gray-700 mb-6">
+                Our Stock Price Predictor uses advanced machine learning algorithms to analyze historical stock data and generate price predictions. 
+                The system leverages various technical indicators and statistical models to provide you with the most accurate forecasts possible.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Data Collection</h3>
+                    <p class="text-gray-600">We gather historical stock data from reliable financial sources to ensure the accuracy of our predictions.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Machine Learning</h3>
+                    <p class="text-gray-600">Our models are trained on vast amounts of market data to identify patterns and trends.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Visualization</h3>
+                    <p class="text-gray-600">Interactive charts help you understand price movements and prediction trends at a glance.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">User-Friendly</h3>
+                    <p class="text-gray-600">Simple interface designed for both beginners and experienced traders.</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4">Disclaimer</h2>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-yellow-700">
+                            Stock market predictions are inherently uncertain and should not be considered as financial advice. 
+                            Always conduct your own research and consult with a licensed financial advisor before making investment decisions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mb-4">Technologies Used</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fab fa-python text-4xl text-blue-600 mb-2"></i>
+                    <p class="font-medium">Python</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-flask text-4xl text-gray-600 mb-2"></i>
+                    <p class="font-medium">Flask</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-chart-line text-4xl text-green-600 mb-2"></i>
+                    <p class="font-medium">yfinance</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-robot text-4xl text-purple-600 mb-2"></i>
+                    <p class="font-medium">scikit-learn</p>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h2 class="text-2xl font-semibold mb-4">Get Started</h2>
+                <p class="mb-4">Ready to explore stock predictions? Head back to the home page and enter a stock symbol to begin.</p>
+                <a href="/" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Predictor
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto py-6 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <p class="text-center text-base text-gray-500">
+                &copy; 2025 Stock Price Predictor. For educational purposes only.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
