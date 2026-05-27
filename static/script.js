@@ -1,12 +1,13 @@
-// DOM Elements
-let tickerInput, daysSelect, errorDiv, loadingDiv, resultsDiv;
-
-// Chart variables
+// Global Application State
 let chart = null;
 let currentTicker = '';
 let currentData = null;
+let currentPeriod = '1y'; // Default to all data (2 years)
 
-// Initialize DOM elements
+// DOM Elements
+let tickerInput, daysSelect, errorDiv, loadingDiv, resultsDiv;
+
+// Initialize DOM Elements
 function initElements() {
     tickerInput = document.getElementById('ticker');
     daysSelect = document.getElementById('days');
@@ -15,72 +16,9 @@ function initElements() {
     resultsDiv = document.getElementById('results');
 }
 
-// Initialize event listeners
-function initEventListeners() {
-    // Add event listener for Enter key in ticker input
-    tickerInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            predict();
-        }
-    });
-
-    // Add event listeners for time period buttons
-    const addButtonListener = (id, period) => {
-        const btn = document.getElementById(id);
-        if (btn) {
-            btn.addEventListener('click', () => updateChartTimeRange(period));
-        }
-    };
-    
-    addButtonListener('btn-1m', '1mo');
-    addButtonListener('btn-3m', '3mo');
-    addButtonListener('btn-1y', '1y');
-    addButtonListener('btn-5y', '5y');
-}
-
-// Initialize the application
-function init() {
-    initElements();
-    initEventListeners();
-    console.log('Stock Predictor initialized');
-}
-
-// Initialize when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
-
-// Set ticker from quick links
-function setTicker(ticker) {
-    if (!tickerInput) initElements();
-    tickerInput.value = ticker.toUpperCase();
-    tickerInput.focus();
-}
-
-// Show/hide loading indicator
-function showLoading(show) {
-    if (!loadingDiv) initElements();
-    loadingDiv.classList.toggle('hidden', !show);
-}
-
-// Show error message
-function showError(message) {
-    if (!errorDiv) initElements();
-    errorDiv.textContent = message;
-    errorDiv.classList.remove('hidden');
-}
-
-// Hide error message
-function hideError() {
-    if (!errorDiv) initElements();
-    errorDiv.classList.add('hidden');
-}
-
-// Format currency
+// Format Currency Utility
 function formatCurrency(value) {
-    if (value === null || value === undefined) return 'N/A';
+    if (value === null || value === undefined || isNaN(value)) return 'N/A';
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -89,214 +27,351 @@ function formatCurrency(value) {
     }).format(value);
 }
 
-// Main prediction function
-async function predict() {
-    if (!tickerInput) initElements(); // Ensure elements are initialized
-    const ticker = tickerInput.value.trim().toUpperCase();
-    const days = parseInt(daysSelect.value);
+// Format Large Numbers (e.g. Volume)
+function formatNumber(value) {
+    if (value === null || value === undefined || isNaN(value)) return 'N/A';
+    return new Intl.NumberFormat('en-US').format(value);
+}
 
-    // Validate input
-    if (ticker) {
-        // Show loading state
-        showLoading(true);
-        hideError();
-        resultsDiv.classList.add('hidden');
-
-        try {
-            // Fetch prediction data
-            const response = await fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ticker: ticker,
-                    days: days
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to fetch prediction data');
-            }
-
-            // Store current data
-            currentTicker = ticker;
-            currentData = data;
-
-            // Update UI with new data
-            updateStockInfo(data);
-            renderChart(data);
-            updateModelMetrics(data);
-            updatePredictionSummary(data);
-
-            // Show results
-            resultsDiv.classList.remove('hidden');
-            resultsDiv.classList.add('fade-in');
-
-        } catch (error) {
-            showError(error.message || 'An error occurred while processing your request');
-            console.error('Prediction error:', error);
-        } finally {
-            showLoading(false);
-        }
+// Show/Hide Loading Overlay
+function showLoading(show) {
+    if (!loadingDiv) initElements();
+    if (show) {
+        loadingDiv.classList.remove('hidden');
+        loadingDiv.classList.add('flex');
+        document.body.style.cursor = 'wait';
+    } else {
+        loadingDiv.classList.remove('flex');
+        loadingDiv.classList.add('hidden');
+        document.body.style.cursor = 'default';
     }
 }
 
-// Update stock information in the UI
+// Show Error Message
+function showError(message) {
+    if (!errorDiv) initElements();
+    errorDiv.textContent = message;
+    errorDiv.classList.remove('hidden');
+}
+
+// Hide Error Message
+function hideError() {
+    if (!errorDiv) initElements();
+    errorDiv.textContent = '';
+    errorDiv.classList.add('hidden');
+}
+
+// Set Stock Ticker from Quick links
+function setTicker(ticker) {
+    if (!tickerInput) initElements();
+    tickerInput.value = ticker.toUpperCase();
+    tickerInput.focus();
+}
+
+// Fetch and Run Prediction
+async function predict() {
+    if (!tickerInput) initElements();
+    
+    const ticker = tickerInput.value.trim().toUpperCase();
+    const days = parseInt(daysSelect.value) || 7;
+
+    if (!ticker) {
+        showError('Please enter a stock symbol (e.g., AAPL).');
+        return;
+    }
+
+    showLoading(true);
+    hideError();
+    resultsDiv.classList.add('hidden');
+
+    try {
+        const response = await fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ticker, days })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to fetch stock prediction data.');
+        }
+
+        // Store standard query state
+        currentTicker = ticker;
+        currentData = data;
+        currentPeriod = '1y'; // Reset period selector to Max (1Y/2Y view)
+
+        // Reset period buttons styling
+        resetPeriodButtons();
+
+        // Update all segments of the UI
+        updateStockInfo(data);
+        renderChart(data, currentPeriod);
+        updateModelMetrics(data);
+        updatePredictionSummary(data);
+
+        // Transition results in smoothly
+        resultsDiv.classList.remove('hidden');
+        resultsDiv.classList.add('fade-in');
+
+    } catch (error) {
+        showError(error.message || 'An error occurred while communicating with the prediction engine.');
+        console.error('Prediction Engine error:', error);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Helper to filter historical data on the client side
+function filterDataByPeriod(historical, period) {
+    const dates = historical.dates;
+    const prices = historical.prices;
+    const sma5 = historical.sma_5;
+    const sma20 = historical.sma_20;
+    
+    let sliceCount = dates.length; // Default to full dataset (~2 years, 504 rows)
+    
+    if (period === '1mo') {
+        sliceCount = Math.min(21, dates.length); // ~21 trading days in a month
+    } else if (period === '3mo') {
+        sliceCount = Math.min(63, dates.length); // ~63 trading days in 3 months
+    } else if (period === '1y') {
+        sliceCount = Math.min(252, dates.length); // ~252 trading days in 1 year
+    }
+    
+    return {
+        dates: dates.slice(-sliceCount),
+        prices: prices.slice(-sliceCount),
+        sma_5: sma5 ? sma5.slice(-sliceCount) : null,
+        sma_20: sma20 ? sma20.slice(-sliceCount) : null
+    };
+}
+
+// Reset period toggle buttons styling
+function resetPeriodButtons() {
+    document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+        btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50');
+        btn.classList.add('bg-white/5', 'text-slate-400', 'border-white/10');
+    });
+    
+    // Set 1Y (All) active by default
+    const maxBtn = document.getElementById('btn-5y');
+    if (maxBtn) {
+        maxBtn.classList.remove('bg-white/5', 'text-slate-400', 'border-white/10');
+        maxBtn.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50');
+    }
+}
+
+// Update time-range selection
+async function updateChartTimeRange(period, event) {
+    if (!currentTicker || !currentData) return;
+    
+    currentPeriod = period;
+    
+    // Update button states
+    document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+        btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50');
+        btn.classList.add('bg-white/5', 'text-slate-400', 'border-white/10');
+    });
+    
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.remove('bg-white/5', 'text-slate-400', 'border-white/10');
+        event.currentTarget.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50');
+    }
+    
+    showLoading(true);
+    
+    // Smooth delay for visual responsiveness
+    await new Promise(resolve => setTimeout(resolve, 200));
+    
+    try {
+        renderChart(currentData, period);
+    } catch (err) {
+        console.error('Error slicing chart period data:', err);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Update Top level Stock Stats Cards
 function updateStockInfo(data) {
     document.getElementById('stock-symbol').textContent = data.ticker;
     document.getElementById('current-price').textContent = formatCurrency(data.current_price);
-    document.getElementById('prediction-confidence').innerHTML = `Confidence: <span class="font-medium">${data.prediction_confidence}%</span>`;
-    
-    // Additional stock info (you can enhance this with more data from yfinance)
-    document.getElementById('day-change').textContent = 'N/A';
-    document.getElementById('year-high').textContent = 'N/A';
-    document.getElementById('year-low').textContent = 'N/A';
-    document.getElementById('volume').textContent = 'N/A';
+    document.getElementById('prediction-confidence').innerHTML = `Confidence Score: <span class="text-cyan-400 font-semibold">${data.prediction_confidence}%</span>`;
+
+    // Map calculated live stats from backend
+    const change = data.day_change;
+    const changePct = data.day_change_percent;
+    const isPositive = change >= 0;
+
+    const changeEl = document.getElementById('day-change');
+    if (changeEl) {
+        changeEl.className = `text-lg font-bold flex items-center gap-1.5 ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`;
+        changeEl.innerHTML = `
+            <i class="fa-solid ${isPositive ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
+            <span>${isPositive ? '+' : ''}${formatCurrency(change)} (${isPositive ? '+' : ''}${changePct.toFixed(2)}%)</span>
+        `;
+    }
+
+    document.getElementById('year-high').textContent = formatCurrency(data.fifty_two_week_high);
+    document.getElementById('year-low').textContent = formatCurrency(data.fifty_two_week_low);
+    document.getElementById('volume').textContent = formatNumber(data.volume);
 }
 
-// Render the stock price chart
-function renderChart(data) {
-    const historicalData = data.historical;
-    const predictionData = data.predictions;
+// Render Premium Plotly Chart
+function renderChart(data, period) {
+    const filteredHist = filterDataByPeriod(data.historical, period);
+    const predictions = data.predictions;
 
-    // Prepare historical trace
+    // 1. Historical Data Trace (Glowing Neon Cyan area)
     const historicalTrace = {
-        x: historicalData.dates,
-        y: historicalData.prices,
+        x: filteredHist.dates,
+        y: filteredHist.prices,
         type: 'scatter',
         mode: 'lines',
         name: 'Historical Price',
-        line: { 
-            color: '#3b82f6',
-            width: 2
-        }
+        fill: 'tozeroy',
+        fillcolor: 'rgba(6, 182, 212, 0.05)', // Super soft translucent cyan
+        line: {
+            color: '#06B6D4', // Tailwind cyan-500
+            width: 2.5,
+            shape: 'spline'
+        },
+        hovertemplate: '<b>Date</b>: %{x}<br><b>Price</b>: %{y:$$.2f}<extra></extra>'
     };
 
-    // Prepare prediction trace
+    // 2. Prediction Data Trace (Neon Fuchsia dashed line with glowing markers)
+    // Connect prediction line to the last historical price point for a seamless visual flow
+    const lastHistDate = filteredHist.dates[filteredHist.dates.length - 1];
+    const lastHistPrice = filteredHist.prices[filteredHist.prices.length - 1];
+    
+    const predDates = [lastHistDate, ...predictions.dates];
+    const predPrices = [lastHistPrice, ...predictions.prices];
+
     const predictionTrace = {
-        x: predictionData.dates,
-        y: predictionData.prices,
+        x: predDates,
+        y: predPrices,
         type: 'scatter',
         mode: 'lines+markers',
-        name: 'Predicted Price',
-        line: { 
-            color: '#ef4444',
+        name: 'Model Forecast',
+        line: {
+            color: '#EC4899', // Tailwind fuchsia-500
             dash: 'dash',
-            width: 2
+            width: 2.5
         },
         marker: {
             size: 6,
-            color: '#ef4444'
-        }
+            color: '#EC4899',
+            bordercolor: '#0F172A',
+            borderwidth: 1.5
+        },
+        hovertemplate: '<b>Forecast Date</b>: %{x}<br><b>Price</b>: %{y:$$.2f}<extra></extra>'
     };
 
-    // Add SMA lines if available
     const traces = [historicalTrace, predictionTrace];
-    
-    if (historicalData.sma_5) {
+
+    // 3. Optional SMA 5 (Emerald) overlay
+    if (filteredHist.sma_5) {
         traces.push({
-            x: historicalData.dates,
-            y: historicalData.sma_5,
+            x: filteredHist.dates,
+            y: filteredHist.sma_5,
             type: 'scatter',
             mode: 'lines',
-            name: 'SMA 5',
+            name: 'SMA 5 (Short term)',
+            visible: 'legendonly', // Hidden by default, clickable in legend
             line: {
-                color: '#10b981',
-                width: 1,
+                color: '#10B981', // Tailwind emerald-500
+                width: 1.5,
                 dash: 'dot'
             }
         });
     }
 
-    if (historicalData.sma_20) {
+    // 4. Optional SMA 20 (Indigo) overlay
+    if (filteredHist.sma_20) {
         traces.push({
-            x: historicalData.dates,
-            y: historicalData.sma_20,
+            x: filteredHist.dates,
+            y: filteredHist.sma_20,
             type: 'scatter',
             mode: 'lines',
-            name: 'SMA 20',
+            name: 'SMA 20 (Trend)',
+            visible: 'legendonly',
             line: {
-                color: '#8b5cf6',
-                width: 1,
+                color: '#6366F1', // Tailwind indigo-500
+                width: 1.5,
                 dash: 'dot'
             }
         });
     }
 
-    // Layout configuration
+    // Modern Dark Theme Layout
     const layout = {
-        title: {
-            text: `${data.ticker} Stock Price Prediction`,
-            font: {
-                size: 18,
-                color: '#1f2937'
-            }
-        },
         xaxis: {
-            title: 'Date',
             type: 'date',
-            gridcolor: '#e5e7eb',
+            gridcolor: 'rgba(30, 41, 59, 0.4)', // Very subtle slate-800 grids
             showline: true,
-            linecolor: '#e5e7eb'
+            linecolor: 'rgba(255, 255, 255, 0.1)',
+            tickfont: { color: '#94A3B8' } // Slate-400
         },
         yaxis: {
-            title: 'Price (USD)',
-            gridcolor: '#e5e7eb',
+            gridcolor: 'rgba(30, 41, 59, 0.4)',
             showline: true,
-            linecolor: '#e5e7eb',
+            linecolor: 'rgba(255, 255, 255, 0.1)',
             tickprefix: '$',
-            tickformat: ',.2f'
+            tickformat: ',.2f',
+            tickfont: { color: '#94A3B8' }
         },
-        plot_bgcolor: 'white',
-        paper_bgcolor: 'white',
+        plot_bgcolor: 'rgba(0,0,0,0)', // Completely transparent background so glassmorphism shows through
+        paper_bgcolor: 'rgba(0,0,0,0)',
         showlegend: true,
         legend: {
             orientation: 'h',
-            y: -0.2
+            y: 1.15,
+            x: 0,
+            font: { color: '#E2E8F0' } // Slate-200
         },
-        hovermode: 'closest',
-        margin: { t: 40, l: 60, r: 40, b: 60 },
+        hovermode: 'x unified',
+        hoverlabel: {
+            bgcolor: '#1E293B',
+            font: { color: '#F1F5F9', size: 13 },
+            bordercolor: '#334155'
+        },
+        margin: { t: 20, l: 45, r: 15, b: 35 },
         transition: {
-            duration: 500,
+            duration: 400,
             easing: 'cubic-in-out'
         }
     };
 
-    // Configuration options
     const config = {
         responsive: true,
         displaylogo: false,
-        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d'],
-        displayModeBar: true
+        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d', 'zoomIn2d', 'zoomOut2d', 'pan2d'],
+        displayModeBar: false // Keep chart completely clean
     };
 
-    // Create or update the chart
     const chartDiv = document.getElementById('chart');
-    if (chart) {
-        Plotly.react(chartDiv, traces, layout, config);
-    } else {
-        chart = Plotly.newPlot(chartDiv, traces, layout, config);
-    }
+    Plotly.react(chartDiv, traces, layout, config);
 }
 
-// Update model metrics in the UI
+// Update model evaluation stats
 function updateModelMetrics(data) {
     const metrics = data.metrics;
     document.getElementById('r2-score').textContent = metrics.r2.toFixed(4);
-    document.getElementById('rmse').textContent = metrics.rmse.toFixed(2);
+    document.getElementById('rmse').textContent = formatCurrency(metrics.rmse);
     document.getElementById('mse').textContent = metrics.mse.toFixed(2);
 }
 
-// Update prediction summary in the UI
+// Update Summary Panel
 function updatePredictionSummary(data) {
     const predictions = data.predictions;
     const summaryDiv = document.getElementById('prediction-summary');
     
     if (!predictions || predictions.prices.length === 0) {
-        summaryDiv.innerHTML = '<p class="text-gray-500">No prediction data available</p>';
+        summaryDiv.innerHTML = '<p class="text-slate-400">No prediction data generated</p>';
         return;
     }
 
@@ -306,99 +381,75 @@ function updatePredictionSummary(data) {
     const percentChange = (priceChange / currentPrice) * 100;
     const isPositive = priceChange >= 0;
 
-    const predictionText = `
-        <div class="space-y-3">
-            <div>
-                <p class="text-sm text-gray-500">Current Price</p>
-                <p class="text-lg font-semibold">${formatCurrency(currentPrice)}</p>
+    const summaryHTML = `
+        <div class="space-y-4">
+            <div class="flex justify-between items-center bg-white/5 p-3 rounded-lg border border-white/5">
+                <div>
+                    <p class="text-xs text-slate-400">Latest Live Price</p>
+                    <p class="text-lg font-bold text-slate-200 mt-0.5">${formatCurrency(currentPrice)}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-slate-400">Forecast Price</p>
+                    <p class="text-lg font-bold text-cyan-400 mt-0.5">${formatCurrency(lastPrediction)}</p>
+                </div>
             </div>
-            <div>
-                <p class="text-sm text-gray-500">Predicted Price (${predictions.dates[predictions.dates.length - 1]})</p>
-                <p class="text-lg font-semibold">${formatCurrency(lastPrediction)}</p>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Expected Change</p>
-                <p class="text-lg font-semibold ${isPositive ? 'text-green-600' : 'text-red-600'}">
-                    ${isPositive ? '+' : ''}${formatCurrency(priceChange)} (${isPositive ? '+' : ''}${percentChange.toFixed(2)}%)
+            
+            <div class="bg-white/5 p-3 rounded-lg border border-white/5">
+                <p class="text-xs text-slate-400">Projected Move</p>
+                <p class="text-xl font-bold mt-1 flex items-center gap-2 ${isPositive ? 'text-emerald-400' : 'text-rose-400'}">
+                    <i class="fa-solid ${isPositive ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
+                    <span>${isPositive ? '+' : ''}${formatCurrency(priceChange)} (${isPositive ? '+' : ''}${percentChange.toFixed(2)}%)</span>
                 </p>
+                <p class="text-[10px] text-slate-500 mt-1">Based on a ${predictions.prices.length}-day forward regression forecast.</p>
             </div>
-            <div class="pt-2 border-t border-gray-100">
-                <p class="text-xs text-gray-500">Prediction confidence: <span class="font-medium">${data.prediction_confidence}%</span></p>
-                <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: ${data.prediction_confidence}%"></div>
+
+            <div class="pt-2">
+                <div class="flex justify-between text-xs text-slate-400 mb-1">
+                    <span>Model Confidence</span>
+                    <span class="text-cyan-400 font-semibold">${data.prediction_confidence}%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                    <div class="bg-gradient-to-r from-cyan-500 to-indigo-500 h-2 rounded-full shadow-[0_0_8px_rgba(6,182,212,0.5)]" style="width: ${data.prediction_confidence}%"></div>
                 </div>
             </div>
         </div>
     `;
 
-    summaryDiv.innerHTML = predictionText;
+    summaryDiv.innerHTML = summaryHTML;
 }
 
-// Update chart time range
-async function updateChartTimeRange(period) {
-    if (!currentTicker) return;
-    
-    // Update active button
-    document.querySelectorAll('[id^="btn-"]').forEach(btn => {
-        btn.classList.remove('bg-blue-100', 'text-blue-800');
-        btn.classList.add('bg-gray-100', 'text-gray-800');
-    });
-    event.target.classList.remove('bg-gray-100', 'text-gray-800');
-    event.target.classList.add('bg-blue-100', 'text-blue-800');
-    
-    // Show loading
-    showLoading(true);
-    
-    try {
-        // In a real app, you would fetch new data for the selected time range
-        // For now, we'll just simulate loading
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Update the chart with the same data but different time range
-        if (currentData) {
-            renderChart(currentData);
-        }
-    } catch (error) {
-        console.error('Error updating chart time range:', error);
-        showError('Failed to update chart time range');
-    } finally {
-        showLoading(false);
-    }
-}
-
-// Helper function to format currency
-function formatCurrency(value) {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(value);
-}
-
-// Show/hide loading indicator
-function showLoading(show) {
-    loadingDiv.style.display = show ? 'flex' : 'none';
-    document.body.style.cursor = show ? 'wait' : 'default';
-}
-
-// Show error message
-function showError(message) {
-    errorDiv.textContent = message;
-    errorDiv.classList.remove('hidden');
-}
-
-// Hide error message
-function hideError() {
-    errorDiv.textContent = '';
-    errorDiv.classList.add('hidden');
-}
-
-// Initialize the application
+// Master Initializer
 function init() {
-    // Add any initialization code here
-    console.log('Stock Predictor initialized');
+    initElements();
+    
+    // Input keypress listener for "Enter" key trigger
+    if (tickerInput) {
+        tickerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                predict();
+            }
+        });
+    }
+
+    // Register active period selection buttons
+    const addRangeListener = (id, period) => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', (e) => updateChartTimeRange(period, e));
+        }
+    };
+    
+    addRangeListener('btn-1m', '1mo');
+    addRangeListener('btn-3m', '3mo');
+    addRangeListener('btn-1y', '1y');
+    addRangeListener('btn-5y', '5y');
+
+    console.log('Stock Predictor core scripting compiled successfully.');
 }
 
-// Start the application
-init();
+// Run script
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}

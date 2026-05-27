@@ -183,20 +183,36 @@ def predict():
         
         # Get stock data
         print(f"Fetching data for {ticker}...")
-        df = get_stock_data(ticker, '2y')  # Get 2 years of data
+        raw_df = get_stock_data(ticker, '2y')  # Get 2 years of data
         
-        if df is None:
+        if raw_df is None:
             return jsonify({
                 'error': f'Failed to fetch data for {ticker}. The symbol may be invalid or the service may be temporarily unavailable.'
             }), 400
             
-        if df.empty:
+        if raw_df.empty:
             return jsonify({
                 'error': f'No data available for {ticker}. Please check the stock symbol and try again.'
             }), 400
+            
+        # Calculate real-time stats from raw_df
+        current_price = float(raw_df['Close'].iloc[-1])
+        
+        day_change = 0.0
+        day_change_percent = 0.0
+        if len(raw_df) >= 2:
+            day_change = float(raw_df['Close'].iloc[-1] - raw_df['Close'].iloc[-2])
+            day_change_percent = float(((raw_df['Close'].iloc[-1] - raw_df['Close'].iloc[-2]) / raw_df['Close'].iloc[-2]) * 100)
+            
+        fifty_two_week_high = float(raw_df['Close'].tail(252).max())
+        fifty_two_week_low = float(raw_df['Close'].tail(252).min())
+        
+        volume = 0
+        if 'Volume' in raw_df.columns and len(raw_df) > 0:
+            volume = int(raw_df['Volume'].iloc[-1])
         
         # Prepare features
-        df = prepare_features(df)
+        df = prepare_features(raw_df)
         if len(df) < 30:  # Ensure we have enough data
             return jsonify({'error': 'Not enough historical data for prediction'}), 400
         
@@ -233,7 +249,12 @@ def predict():
                 'prices': future_prices
             },
             'metrics': model_data['metrics'],
-            'current_price': df['Close'].iloc[-1],
+            'current_price': current_price,
+            'day_change': day_change,
+            'day_change_percent': day_change_percent,
+            'fifty_two_week_high': fifty_two_week_high,
+            'fifty_two_week_low': fifty_two_week_low,
+            'volume': volume,
             'prediction_confidence': min(95, max(60, int(model_data['metrics']['r2'] * 100)))
         }
         
