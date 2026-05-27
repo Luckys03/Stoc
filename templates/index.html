@@ -22,7 +22,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC; /* Premium light slate background */
+            background-color: #0B0F19; /* Deep Space Slate-Black */
             overflow-x: hidden;
         }
         
@@ -35,13 +35,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glassmorphism custom classes - Light Theme */
+        /* Glassmorphism custom classes - Dark Premium Theme */
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
         }
         
         .glass-card-hover {
@@ -49,55 +49,55 @@
         }
         .glass-card-hover:hover {
             transform: translateY(-4px);
-            border-color: rgba(6, 182, 212, 0.3);
-            box-shadow: 0 16px 40px -10px rgba(6, 182, 212, 0.12);
+            border-color: rgba(6, 182, 212, 0.25);
+            box-shadow: 0 16px 40px -10px rgba(6, 182, 212, 0.1);
         }
 
         /* Glowing accents */
         .glow-cyan {
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
         }
 
-        /* Custom Scrollbar for light theme */
+        /* Custom Scrollbar for dark theme */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #F8FAFC;
+            background: #0B0F19;
         }
         ::-webkit-scrollbar-thumb {
-            background: #CBD5E1; /* Slate-300 */
+            background: #1E293B; /* Slate-800 */
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
+            background: #334155;
         }
     </style>
 </head>
-<body class="text-slate-800 min-h-screen relative pb-16">
+<body class="text-slate-100 min-h-screen relative pb-16">
 
-    <!-- Ambient glowing light blobs in background (Prismatic light effects) -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-fuchsia-400/10 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute bottom-10 left-1/3 w-96 h-96 bg-indigo-400/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- Ambient glowing light blobs in background (Futuristic Prismatic blurs) -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none"></div>
 
     <!-- Navigation Header -->
-    <nav class="sticky top-0 z-40 backdrop-blur-md bg-white/70 border-b border-slate-200/80">
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#0B0F19]/80 border-b border-slate-900/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                         <i class="fas fa-chart-line text-white text-xl"></i>
                     </div>
                     <div>
-                        <span class="text-lg font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-indigo-700">StockPredict</span>
-                        <span class="text-[10px] block font-bold text-slate-400 tracking-wider uppercase -mt-1">Machine Learning AI</span>
+                        <span class="text-lg font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">StockPredict</span>
+                        <span class="text-[10px] block font-bold text-slate-500 tracking-wider uppercase -mt-1">Machine Learning AI</span>
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <a href="/" class="text-sm font-bold text-cyan-600 hover:text-cyan-500 transition-colors py-2 px-1 border-b-2 border-cyan-500">Home</a>
-                    <a href="/about" class="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors py-2 px-1">Algorithm</a>
+                    <a href="/" class="text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors py-2 px-1 border-b-2 border-cyan-400">Home</a>
+                    <a href="/about" class="text-sm font-bold text-slate-400 hover:text-slate-200 transition-colors py-2 px-1">Algorithm</a>
                 </div>
             </div>
         </div>
@@ -108,16 +108,16 @@
         
         <!-- Header Text -->
         <div class="mb-8">
-            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-                Predictive <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-indigo-600 to-fuchsia-600">Market intelligence</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                Predictive <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-indigo-400 to-fuchsia-400">Market intelligence</span>
             </h1>
-            <p class="text-slate-500 text-sm mt-2 max-w-xl">
+            <p class="text-slate-400 text-sm mt-2 max-w-xl">
                 Deploy advanced Random Forest regression models to analyze historical trends, extract statistical indicators, and forecast equity performance.
             </p>
         </div>
 
         <!-- Dashboard Setup Controller Panel -->
-        <div class="glass-card rounded-2xl p-6 mb-8 border border-slate-200/50 shadow-xl relative overflow-hidden bg-white/80">
+        <div class="glass-card rounded-2xl p-6 mb-8 border border-slate-800/80 shadow-xl relative overflow-hidden bg-slate-900/60">
             <!-- Gradient top line decoration -->
             <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-500 via-indigo-500 to-fuchsia-500"></div>
             
@@ -125,45 +125,45 @@
                 
                 <!-- Stock Symbol Input -->
                 <div class="md:col-span-5">
-                    <label for="ticker" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Equity Ticker Symbol</label>
+                    <label for="ticker" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Equity Ticker Symbol</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
                             <i class="fa-solid fa-building-columns"></i>
                         </span>
                         <input type="text" name="ticker" id="ticker" 
-                               class="block w-full bg-white border border-slate-300 text-slate-900 pl-11 pr-12 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all font-semibold placeholder-slate-400 sm:text-sm shadow-sm" 
+                               class="block w-full bg-slate-950/60 border border-slate-800 text-white pl-11 pr-12 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-500/30 focus:border-cyan-500/80 transition-all font-semibold placeholder-slate-600 sm:text-sm shadow-inner" 
                                placeholder="Enter symbol (e.g. AAPL, TSLA, NVDA)">
-                        <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-sm">
+                        <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-500 text-sm">
                             <i class="fas fa-search"></i>
                         </span>
                     </div>
                     
                     <!-- Quick Recommendations -->
                     <div class="mt-2.5 flex items-center space-x-2">
-                        <span class="text-[10px] font-bold text-slate-400 tracking-wide uppercase">Popular:</span>
+                        <span class="text-[10px] font-bold text-slate-500 tracking-wide uppercase">Popular:</span>
                         <div class="flex space-x-1.5">
-                            <button onclick="setTicker('AAPL')" class="text-[11px] bg-slate-100 hover:bg-cyan-50 text-slate-600 hover:text-cyan-600 border border-slate-200 px-2.5 py-0.5 rounded-md font-semibold transition-all">AAPL</button>
-                            <button onclick="setTicker('MSFT')" class="text-[11px] bg-slate-100 hover:bg-cyan-50 text-slate-600 hover:text-cyan-600 border border-slate-200 px-2.5 py-0.5 rounded-md font-semibold transition-all">MSFT</button>
-                            <button onclick="setTicker('TSLA')" class="text-[11px] bg-slate-100 hover:bg-cyan-50 text-slate-600 hover:text-cyan-600 border border-slate-200 px-2.5 py-0.5 rounded-md font-semibold transition-all">TSLA</button>
-                            <button onclick="setTicker('NVDA')" class="text-[11px] bg-slate-100 hover:bg-cyan-50 text-slate-600 hover:text-cyan-600 border border-slate-200 px-2.5 py-0.5 rounded-md font-semibold transition-all">NVDA</button>
+                            <button onclick="setTicker('AAPL')" class="text-[11px] bg-white/5 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-400 border border-white/5 hover:border-cyan-500/20 px-2.5 py-0.5 rounded-md font-semibold transition-all">AAPL</button>
+                            <button onclick="setTicker('MSFT')" class="text-[11px] bg-white/5 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-400 border border-white/5 hover:border-cyan-500/20 px-2.5 py-0.5 rounded-md font-semibold transition-all">MSFT</button>
+                            <button onclick="setTicker('TSLA')" class="text-[11px] bg-white/5 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-400 border border-white/5 hover:border-cyan-500/20 px-2.5 py-0.5 rounded-md font-semibold transition-all">TSLA</button>
+                            <button onclick="setTicker('NVDA')" class="text-[11px] bg-white/5 hover:bg-cyan-500/10 text-slate-300 hover:text-cyan-400 border border-white/5 hover:border-cyan-500/20 px-2.5 py-0.5 rounded-md font-semibold transition-all">NVDA</button>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Prediction Length Select -->
                 <div class="md:col-span-3">
-                    <label for="days" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Forecast Horizon</label>
+                    <label for="days" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Forecast Horizon</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
                             <i class="fa-regular fa-calendar-days"></i>
                         </span>
                         <select id="days" 
-                                class="block w-full bg-white border border-slate-300 text-slate-900 pl-11 pr-10 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all font-semibold sm:text-sm appearance-none cursor-pointer shadow-sm">
+                                class="block w-full bg-slate-950/60 border border-slate-800 text-white pl-11 pr-10 py-3 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-500/30 focus:border-cyan-500/80 transition-all font-semibold sm:text-sm appearance-none cursor-pointer">
                             <option value="7">7 Days Ahead</option>
                             <option value="14">14 Days Ahead</option>
                             <option value="30">30 Days Ahead</option>
                         </select>
-                        <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-[10px]">
+                        <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-500 text-[10px]">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </div>
@@ -172,7 +172,7 @@
                 <!-- Run Forecast Trigger Button -->
                 <div class="md:col-span-4">
                     <button onclick="predict()" 
-                            class="w-full bg-gradient-to-r from-cyan-600 to-indigo-700 hover:from-cyan-500 hover:to-indigo-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-md shadow-cyan-500/10 hover:shadow-cyan-500/20 focus:outline-none transition-all flex items-center justify-center space-x-2 text-sm">
+                            class="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-cyan-500/15 hover:shadow-cyan-500/25 focus:outline-none transition-all flex items-center justify-center space-x-2 text-sm">
                         <i class="fa-solid fa-brain"></i>
                         <span>Generate Intelligence</span>
                     </button>
@@ -180,7 +180,7 @@
             </div>
             
             <!-- Floating Error Box -->
-            <div id="error" class="mt-4 p-3 bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold rounded-xl hidden flex items-center gap-2">
+            <div id="error" class="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold rounded-xl hidden flex items-center gap-2">
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span id="error-text"></span>
             </div>
@@ -193,77 +193,77 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 
                 <!-- Main Header Asset Card -->
-                <div class="glass-card rounded-2xl p-5 border border-slate-200/50 flex flex-col justify-between h-36 bg-white/80">
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between h-36 bg-slate-900/60 relative overflow-hidden">
                     <div class="flex justify-between items-start">
                         <div>
-                            <span id="stock-symbol" class="text-3xl font-extrabold tracking-tight text-slate-900 uppercase">-</span>
-                            <span class="text-[10px] block font-bold text-slate-400 uppercase tracking-wider mt-0.5">Selected Asset</span>
+                            <span id="stock-symbol" class="text-3xl font-extrabold tracking-tight text-white uppercase glow-cyan">-</span>
+                            <span class="text-[10px] block font-bold text-slate-500 uppercase tracking-wider mt-0.5">Selected Asset</span>
                         </div>
-                        <span class="w-8 h-8 rounded-lg bg-cyan-500/5 border border-cyan-500/15 flex items-center justify-center text-cyan-600">
+                        <span class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-sm">
                             <i class="fa-solid fa-gem"></i>
                         </span>
                     </div>
                     <div class="mt-2">
-                        <span id="prediction-confidence" class="text-xs font-bold text-slate-500">-</span>
+                        <span id="prediction-confidence" class="text-xs font-bold text-slate-400">-</span>
                     </div>
                 </div>
 
                 <!-- Live Value Card -->
-                <div class="glass-card rounded-2xl p-5 border border-slate-200/50 flex flex-col justify-between h-36 bg-white/80">
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between h-36 bg-slate-900/60">
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="text-[10px] block font-bold text-slate-400 uppercase tracking-wider mb-1">Latest Market Price</span>
-                            <span id="current-price" class="text-2xl font-extrabold tracking-tight text-slate-900">$0.00</span>
+                            <span class="text-[10px] block font-bold text-slate-500 uppercase tracking-wider mb-1">Latest Market Price</span>
+                            <span id="current-price" class="text-2xl font-extrabold tracking-tight text-white">$0.00</span>
                         </div>
-                        <span class="w-8 h-8 rounded-lg bg-indigo-500/5 border border-indigo-500/15 flex items-center justify-center text-indigo-600">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
                             <i class="fa-solid fa-coins"></i>
                         </span>
                     </div>
-                    <div class="border-t border-slate-100 pt-2 flex items-center justify-between text-xs">
-                        <span class="text-slate-500">1D Gain/Loss:</span>
+                    <div class="border-t border-slate-800 pt-2 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">1D Gain/Loss:</span>
                         <span id="day-change" class="font-bold">-</span>
                     </div>
                 </div>
 
                 <!-- 52-Week Range Card -->
-                <div class="glass-card rounded-2xl p-5 border border-slate-200/50 flex flex-col justify-between h-36 bg-white/80">
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between h-36 bg-slate-900/60">
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="text-[10px] block font-bold text-slate-400 uppercase tracking-wider mb-1.5">52-Week Range</span>
+                            <span class="text-[10px] block font-bold text-slate-500 uppercase tracking-wider mb-1.5">52-Week Range</span>
                             <div class="space-y-1">
-                                <p class="text-xs text-slate-600 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-caret-up text-emerald-500 text-[10px]"></i>
+                                <p class="text-xs text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-caret-up text-emerald-400 text-[10px]"></i>
                                     <span>High:</span>
-                                    <span id="year-high" class="font-bold text-slate-800">$0.00</span>
+                                    <span id="year-high" class="font-bold text-slate-100">$0.00</span>
                                 </p>
-                                <p class="text-xs text-slate-600 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-caret-down text-rose-500 text-[10px]"></i>
+                                <p class="text-xs text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-caret-down text-rose-400 text-[10px]"></i>
                                     <span>Low:</span>
-                                    <span id="year-low" class="font-bold text-slate-800">$0.00</span>
+                                    <span id="year-low" class="font-bold text-slate-100">$0.00</span>
                                 </p>
                             </div>
                         </div>
-                        <span class="w-8 h-8 rounded-lg bg-emerald-500/5 border border-emerald-500/15 flex items-center justify-center text-emerald-600">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                             <i class="fa-solid fa-arrows-left-right-to-line"></i>
                         </span>
                     </div>
                 </div>
 
                 <!-- Trading Volume Card -->
-                <div class="glass-card rounded-2xl p-5 border border-slate-200/50 flex flex-col justify-between h-36 bg-white/80">
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between h-36 bg-slate-900/60">
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="text-[10px] block font-bold text-slate-400 uppercase tracking-wider mb-1">Trading Volume</span>
-                            <span id="volume" class="text-2xl font-extrabold tracking-tight text-slate-900">0</span>
+                            <span class="text-[10px] block font-bold text-slate-500 uppercase tracking-wider mb-1">Trading Volume</span>
+                            <span id="volume" class="text-2xl font-extrabold tracking-tight text-white">0</span>
                         </div>
-                        <span class="w-8 h-8 rounded-lg bg-fuchsia-500/5 border border-fuchsia-500/15 flex items-center justify-center text-fuchsia-600">
+                        <span class="w-8 h-8 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400">
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>
                     </div>
-                    <div class="border-t border-slate-100 pt-2 flex justify-between text-xs">
-                        <span class="text-slate-500">Status:</span>
-                        <span class="text-emerald-600 font-bold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    <div class="border-t border-slate-800 pt-2 flex justify-between text-xs">
+                        <span class="text-slate-400">Status:</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                             <span>Live Data</span>
                         </span>
                     </div>
@@ -271,27 +271,27 @@
             </div>
 
             <!-- Charting Visualizer Container -->
-            <div class="glass-card rounded-3xl p-6 mb-8 border border-slate-200/50 shadow-xl relative bg-white/80">
+            <div class="glass-card rounded-3xl p-6 mb-8 border border-slate-800/80 shadow-2xl relative bg-slate-900/60">
                 
-                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
                     <div class="flex items-center space-x-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-[0_0_8px_#06B6D4]"></span>
-                        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">AI Forecast & Trend Analysis</h3>
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#06B6D4]"></span>
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider">AI Forecast & Trend Analysis</h3>
                     </div>
                     
                     <!-- Chart Time Slicer Toggles -->
-                    <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200 self-start shadow-inner">
-                        <button id="btn-1m" class="px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white text-slate-500 shadow-sm transition-all hover:text-slate-800">1M</button>
-                        <button id="btn-3m" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white text-slate-500 shadow-sm transition-all hover:text-slate-800">3M</button>
-                        <button id="btn-1y" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white text-slate-500 shadow-sm transition-all hover:text-slate-800">1Y</button>
-                        <button id="btn-5y" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-cyan-200 bg-cyan-500/10 text-cyan-600 border-cyan-500/20 transition-all">MAX</button>
+                    <div class="flex bg-slate-950/80 p-1 rounded-xl border border-slate-800 self-start shadow-inner">
+                        <button id="btn-1m" class="px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white/5 text-slate-400 transition-all hover:text-slate-200">1M</button>
+                        <button id="btn-3m" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white/5 text-slate-400 transition-all hover:text-slate-200">3M</button>
+                        <button id="btn-1y" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-transparent bg-white/5 text-slate-400 transition-all hover:text-slate-200">1Y</button>
+                        <button id="btn-5y" class="ml-1 px-3.5 py-1.5 text-xs font-bold rounded-lg border border-cyan-500/50 bg-cyan-500/20 text-cyan-400 transition-all">MAX</button>
                     </div>
                 </div>
                 
                 <!-- Plotly Box -->
                 <div id="chart" class="w-full h-96 sm:h-[450px]"></div>
                 
-                <div class="mt-4 flex items-center gap-2 text-[10px] text-slate-400 italic">
+                <div class="mt-4 flex items-center gap-2 text-[10px] text-slate-500 italic">
                     <i class="fa-solid fa-circle-info"></i>
                     <span>Short-term SMA 5 & SMA 20 moving averages can be toggled by clicking them on the legend at the top of the chart.</span>
                 </div>
@@ -301,10 +301,10 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
                 
                 <!-- Left: Forecast Summary Card -->
-                <div class="glass-card rounded-2xl p-6 md:col-span-5 border border-slate-200/50 bg-white/80">
-                    <div class="flex items-center space-x-2.5 mb-5 border-b border-slate-100 pb-3">
-                        <i class="fa-solid fa-list-check text-cyan-600"></i>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600">Forecast Deliverable</h3>
+                <div class="glass-card rounded-2xl p-6 md:col-span-5 border border-slate-800/80 bg-slate-900/60">
+                    <div class="flex items-center space-x-2.5 mb-5 border-b border-slate-800 pb-3">
+                        <i class="fa-solid fa-list-check text-cyan-400"></i>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Forecast Deliverable</h3>
                     </div>
                     <div id="prediction-summary">
                         <!-- Populated by JavaScript -->
@@ -312,41 +312,41 @@
                 </div>
 
                 <!-- Right: Machine Learning Metrics Card -->
-                <div class="glass-card rounded-2xl p-6 md:col-span-7 border border-slate-200/50 bg-white/80 flex flex-col justify-between">
+                <div class="glass-card rounded-2xl p-6 md:col-span-7 border border-slate-800/80 bg-slate-900/60 flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center space-x-2.5 mb-5 border-b border-slate-100 pb-3">
-                            <i class="fa-solid fa-gauge-high text-fuchsia-600"></i>
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600">Model Evaluation Metrics</h3>
+                        <div class="flex items-center space-x-2.5 mb-5 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-gauge-high text-fuchsia-400"></i>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">Model Evaluation Metrics</h3>
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                             
                             <!-- R2 Card -->
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl relative overflow-hidden shadow-sm">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">R² Coefficient</p>
-                                <p id="r2-score" class="text-2xl font-black text-slate-800 mt-1.5">-</p>
-                                <span class="text-[9px] block text-cyan-600 font-semibold mt-1">Variance captured (0-1)</span>
+                            <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl relative overflow-hidden shadow-sm">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">R² Coefficient</p>
+                                <p id="r2-score" class="text-2xl font-black text-white mt-1.5">-</p>
+                                <span class="text-[9px] block text-cyan-400 font-semibold mt-1">Variance captured (0-1)</span>
                             </div>
 
                             <!-- RMSE Card -->
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl relative overflow-hidden shadow-sm">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">RMSE Price</p>
-                                <p id="rmse" class="text-2xl font-black text-slate-800 mt-1.5">-</p>
-                                <span class="text-[9px] block text-fuchsia-600 font-semibold mt-1">Root Mean Square Error</span>
+                            <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl relative overflow-hidden shadow-sm">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">RMSE Price</p>
+                                <p id="rmse" class="text-2xl font-black text-white mt-1.5">-</p>
+                                <span class="text-[9px] block text-fuchsia-400 font-semibold mt-1">Root Mean Square Error</span>
                             </div>
 
                             <!-- MSE Card -->
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl relative overflow-hidden shadow-sm">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MSE Error</p>
-                                <p id="mse" class="text-2xl font-black text-slate-800 mt-1.5">-</p>
-                                <span class="text-[9px] block text-slate-400 font-semibold mt-1">Mean Square Error</span>
+                            <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl relative overflow-hidden shadow-sm">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">MSE Error</p>
+                                <p id="mse" class="text-2xl font-black text-white mt-1.5">-</p>
+                                <span class="text-[9px] block text-slate-500 font-semibold mt-1">Mean Square Error</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Pipeline summary tag -->
-                    <div class="mt-6 bg-slate-50 border border-slate-200/80 p-3 rounded-xl text-[11px] text-slate-500 flex items-start gap-2.5">
-                        <i class="fa-solid fa-server text-cyan-600 mt-0.5 animate-pulse"></i>
+                    <div class="mt-6 bg-slate-950/40 border border-slate-850 p-3 rounded-xl text-[11px] text-slate-400 flex items-start gap-2.5">
+                        <i class="fa-solid fa-server text-cyan-400 mt-0.5 animate-pulse"></i>
                         <p>
                             <strong>Model Architecture</strong>: Scikit-Learn Random Forest Regressor trained asynchronously on 2 years of daily technical indicators (Returns, Volatility, short & medium Simple Moving Averages).
                         </p>
@@ -356,10 +356,10 @@
         </div>
 
         <!-- High-Blur Translucent Loader Overlay -->
-        <div id="loading" class="hidden fixed inset-0 bg-white/70 backdrop-blur-md flex-col items-center justify-center z-50">
-            <div class="glass-card p-8 rounded-3xl border border-slate-200/50 text-center max-w-sm mx-4 relative overflow-hidden bg-white/90">
+        <div id="loading" class="hidden fixed inset-0 bg-[#0B0F19]/80 backdrop-blur-md flex-col items-center justify-center z-50">
+            <div class="glass-card p-8 rounded-3xl border border-slate-800/80 text-center max-w-sm mx-4 relative overflow-hidden bg-slate-900/90">
                 <!-- Glowing cyan light effect behind wheel -->
-                <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"></div>
                 
                 <!-- Glowing Double Spinning wheel -->
                 <div class="relative w-20 h-20 mx-auto flex items-center justify-center">
@@ -367,8 +367,8 @@
                     <div class="absolute animate-spin rounded-full h-12 w-12 border-2 border-transparent border-l-fuchsia-500 border-r-fuchsia-500 animation-delay-200"></div>
                 </div>
                 
-                <h4 class="mt-6 text-base font-bold text-slate-800 tracking-tight">Deploying AI Regressor</h4>
-                <p class="mt-2 text-xs text-slate-500 leading-relaxed">
+                <h4 class="mt-6 text-base font-bold text-slate-100 tracking-tight">Deploying AI Regressor</h4>
+                <p class="mt-2 text-xs text-slate-400 leading-relaxed">
                     Analyzing historical arrays, extracting technical oscillators, and executing predictive regression forest...
                 </p>
                 <div class="mt-4 flex items-center justify-center space-x-1 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
@@ -380,8 +380,8 @@
     </main>
 
     <!-- Footer Area -->
-    <footer class="border-t border-slate-200 absolute bottom-0 left-0 right-0 h-16 flex items-center justify-center bg-white/80 backdrop-blur-sm z-30">
-        <p class="text-xs text-slate-400 tracking-wide font-medium">
+    <footer class="border-t border-slate-900 absolute bottom-0 left-0 right-0 h-16 flex items-center justify-center bg-[#0B0F19]/90 backdrop-blur-sm z-30">
+        <p class="text-xs text-slate-500 tracking-wide font-medium">
             &copy; 2026 StockPredict AI. Developed for educational and demonstration analytics only.
         </p>
     </footer>

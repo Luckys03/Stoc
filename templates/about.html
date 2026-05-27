@@ -19,7 +19,7 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #0B0F19; /* Deep Space Slate-Black */
             overflow-x: hidden;
         }
         
@@ -32,13 +32,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glassmorphism custom classes - Light Theme */
+        /* Glassmorphism custom classes - Dark Premium Theme */
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
         }
         
         .glass-card-hover {
@@ -46,13 +46,13 @@
         }
         .glass-card-hover:hover {
             transform: translateY(-4px);
-            border-color: rgba(236, 72, 153, 0.3);
-            box-shadow: 0 16px 40px -10px rgba(236, 72, 153, 0.12);
+            border-color: rgba(236, 72, 153, 0.25);
+            box-shadow: 0 16px 40px -10px rgba(236, 72, 153, 0.1);
         }
 
         /* Glowing accents */
         .glow-cyan {
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
         }
 
         /* Custom Scrollbar */
@@ -60,25 +60,25 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #F8FAFC;
+            background: #0B0F19;
         }
         ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
+            background: #1E293B;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
+            background: #334155;
         }
     </style>
 </head>
-<body class="text-slate-800 min-h-screen relative pb-20">
+<body class="text-slate-100 min-h-screen relative pb-20">
 
     <!-- Ambient glowing light blobs in background -->
-    <div class="absolute top-0 right-1/4 w-96 h-96 bg-fuchsia-400/5 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-cyan-400/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-fuchsia-600/5 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none"></div>
 
     <!-- Navigation Header -->
-    <nav class="sticky top-0 z-40 backdrop-blur-md bg-white/70 border-b border-slate-200/80">
+    <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#0B0F19]/80 border-b border-slate-900/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center space-x-3">
@@ -86,14 +86,14 @@
                         <i class="fas fa-chart-line text-white text-xl"></i>
                     </div>
                     <div>
-                        <span class="text-lg font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-indigo-700">StockPredict</span>
-                        <span class="text-[10px] block font-bold text-slate-400 tracking-wider uppercase -mt-1">Machine Learning AI</span>
+                        <span class="text-lg font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">StockPredict</span>
+                        <span class="text-[10px] block font-bold text-slate-500 tracking-wider uppercase -mt-1">Machine Learning AI</span>
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <a href="/" class="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors py-2 px-1">Home</a>
-                    <a href="/about" class="text-sm font-bold text-cyan-600 hover:text-cyan-500 transition-colors py-2 px-1 border-b-2 border-cyan-500">Algorithm</a>
+                    <a href="/" class="text-sm font-bold text-slate-400 hover:text-slate-200 transition-colors py-2 px-1">Home</a>
+                    <a href="/about" class="text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors py-2 px-1 border-b-2 border-cyan-400">Algorithm</a>
                 </div>
             </div>
         </div>
@@ -104,58 +104,58 @@
         
         <!-- Header Section -->
         <div class="text-center mb-12">
-            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
-                Model <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 to-cyan-600">Architecture & Pipeline</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                Model <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-400 to-cyan-400">Architecture & Pipeline</span>
             </h1>
-            <p class="text-slate-500 text-sm mt-3 max-w-lg mx-auto leading-relaxed">
+            <p class="text-slate-400 text-sm mt-3 max-w-lg mx-auto leading-relaxed">
                 Discover the data workflow, feature configuration, and mathematical regressor behind StockPredict AI's forecasting system.
             </p>
         </div>
 
         <!-- Glassmorphism Container -->
-        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-200/50 shadow-2xl relative overflow-hidden mb-12 bg-white/80">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/5 shadow-2xl relative overflow-hidden mb-12 bg-slate-900/60">
             <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-fuchsia-500 to-cyan-500"></div>
             
             <!-- How It Works Section -->
-            <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-gears text-fuchsia-600"></i>
+            <h2 class="text-lg font-bold text-slate-100 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-gears text-fuchsia-400"></i>
                 <span>Data Engineering Workflow</span>
             </h2>
             
-            <p class="text-slate-600 text-sm leading-relaxed mb-8">
+            <p class="text-slate-300 text-sm leading-relaxed mb-8">
                 StockPredict AI runs a structured ML pipeline every time a query is executed. The engine pulls raw arrays, runs calculations on rolling windows, and fits a high-dimensional random forest to project upcoming price coordinates.
             </p>
             
             <!-- Workflow Steps Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 glass-card-hover">
-                    <span class="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 flex items-center justify-center font-bold text-xs mb-3">01</span>
-                    <h3 class="text-sm font-bold text-slate-800 mb-1.5">Historical Ingestion</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed">
+                <div class="bg-slate-950/40 border border-slate-900 rounded-2xl p-5 glass-card-hover">
+                    <span class="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs mb-3">01</span>
+                    <h3 class="text-sm font-bold text-slate-200 mb-1.5">Historical Ingestion</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
                         The backend connects to Yahoo Finance to retrieve 2 full years of daily raw equity data, capturing Open, High, Low, Close, and Volume vectors.
                     </p>
                 </div>
                 
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 glass-card-hover">
-                    <span class="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 flex items-center justify-center font-bold text-xs mb-3">02</span>
-                    <h3 class="text-sm font-bold text-slate-800 mb-1.5">Technical Oscillators</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed">
+                <div class="bg-slate-950/40 border border-slate-900 rounded-2xl p-5 glass-card-hover">
+                    <span class="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs mb-3">02</span>
+                    <h3 class="text-sm font-bold text-slate-200 mb-1.5">Technical Oscillators</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
                         Calculates daily percentage returns alongside 5-day (short-term) and 20-day (trend) moving averages and annualized historical volatility.
                     </p>
                 </div>
 
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 glass-card-hover">
-                    <span class="w-7 h-7 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-600 flex items-center justify-center font-bold text-xs mb-3">03</span>
-                    <h3 class="text-sm font-bold text-slate-800 mb-1.5">Feature Engineering</h3>
-                    <p class="text-slate-500 text-xs leading-relaxed">
+                <div class="bg-slate-950/40 border border-slate-900 rounded-2xl p-5 glass-card-hover">
+                    <span class="w-7 h-7 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center font-bold text-xs mb-3">03</span>
+                    <h3 class="text-sm font-bold text-slate-200 mb-1.5">Feature Engineering</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">
                         Features are aligned with targets using standard shifting. Data vectors are scaled through MinMaxScaler to optimize random forest splits.
                     </p>
                 </div>
 
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 glass-card-hover">
-                    <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center font-bold text-xs mb-3">04</span>
-                    <h3 class="text-sm font-bold text-slate-800 mb-1.5">Forest Regression</h3>
+                <div class="bg-slate-950/40 border border-slate-900 rounded-2xl p-5 glass-card-hover">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs mb-3">04</span>
+                    <h3 class="text-sm font-bold text-slate-200 mb-1.5">Forest Regression</h3>
                     <p class="text-slate-400 text-xs leading-relaxed">
                         Trains a Random Forest Regressor of 100 decision trees. Deep-learning depth bounds are set at 10 to prevent overfitting.
                     </p>
@@ -163,12 +163,12 @@
             </div>
 
             <!-- Mathematical Disclaimer Section -->
-            <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+            <h2 class="text-lg font-bold text-slate-100 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
                 <span>Model Safety & Limitations</span>
             </h2>
             
-            <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl mb-10 flex gap-3 text-xs leading-relaxed text-amber-600">
+            <div class="bg-amber-500/5 border border-amber-500/15 p-4 rounded-xl mb-10 flex gap-3 text-xs leading-relaxed text-amber-400">
                 <i class="fa-solid fa-circle-exclamation text-base mt-0.5 flex-shrink-0"></i>
                 <div>
                     <strong>Educational Disclaimer</strong>: Equity and derivative trading involves substantial capital risk. The Random Forest model executes historical curve fitting on technical indicators and does not compute real-world parameters such as macroeconomic conditions, microeconomic changes, unexpected earnings reports, news events, or black swan occurrences. This tool is designed purely for analytics demonstrations and should not be used as professional financial advice.
@@ -176,43 +176,43 @@
             </div>
 
             <!-- Stack Grid Section -->
-            <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider mb-5 flex items-center gap-2">
-                <i class="fa-solid fa-server text-cyan-600"></i>
+            <h2 class="text-lg font-bold text-slate-100 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <i class="fa-solid fa-server text-cyan-400"></i>
                 <span>Backend Technology Architecture</span>
             </h2>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 
-                <div class="text-center p-4 bg-slate-50 border border-slate-200 rounded-2xl glass-card-hover">
-                    <i class="fab fa-python text-3xl text-cyan-600 mb-2"></i>
-                    <p class="font-bold text-xs text-slate-800">Python</p>
+                <div class="text-center p-4 bg-slate-950/40 border border-slate-900 rounded-2xl glass-card-hover">
+                    <i class="fab fa-python text-3xl text-cyan-400 mb-2"></i>
+                    <p class="font-bold text-xs text-slate-200">Python</p>
                     <span class="text-[9px] block text-slate-500 mt-0.5">Core Analytics System</span>
                 </div>
 
-                <div class="text-center p-4 bg-slate-50 border border-slate-200 rounded-2xl glass-card-hover">
-                    <i class="fa-solid fa-cubes text-3xl text-fuchsia-600 mb-2"></i>
-                    <p class="font-bold text-xs text-slate-800">Flask</p>
+                <div class="text-center p-4 bg-slate-950/40 border border-slate-900 rounded-2xl glass-card-hover">
+                    <i class="fa-solid fa-cubes text-3xl text-fuchsia-400 mb-2"></i>
+                    <p class="font-bold text-xs text-slate-200">Flask</p>
                     <span class="text-[9px] block text-slate-500 mt-0.5">REST API Backend</span>
                 </div>
 
-                <div class="text-center p-4 bg-slate-50 border border-slate-200 rounded-2xl glass-card-hover">
-                    <i class="fa-solid fa-chart-line text-3xl text-emerald-600 mb-2"></i>
-                    <p class="font-bold text-xs text-slate-800">yfinance</p>
+                <div class="text-center p-4 bg-slate-950/40 border border-slate-900 rounded-2xl glass-card-hover">
+                    <i class="fa-solid fa-chart-line text-3xl text-emerald-400 mb-2"></i>
+                    <p class="font-bold text-xs text-slate-200">yfinance</p>
                     <span class="text-[9px] block text-slate-500 mt-0.5">Financial Fetch Engine</span>
                 </div>
 
-                <div class="text-center p-4 bg-slate-50 border border-slate-200 rounded-2xl glass-card-hover">
-                    <i class="fa-solid fa-brain text-3xl text-indigo-600 mb-2"></i>
-                    <p class="font-bold text-xs text-slate-800">scikit-learn</p>
+                <div class="text-center p-4 bg-slate-950/40 border border-slate-900 rounded-2xl glass-card-hover">
+                    <i class="fa-solid fa-brain text-3xl text-indigo-400 mb-2"></i>
+                    <p class="font-bold text-xs text-slate-200">scikit-learn</p>
                     <span class="text-[9px] block text-slate-500 mt-0.5">Decision Forests</span>
                 </div>
             </div>
 
             <!-- Get Started Link -->
-            <div class="mt-8 pt-6 border-t border-slate-100 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="mt-8 pt-6 border-t border-slate-800/80 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-800">Ready to run high-dimensional forecasts?</h3>
-                    <p class="text-slate-500 text-xs mt-0.5">Return to the dashboard page to analyze your custom symbol.</p>
+                    <h3 class="text-sm font-bold text-slate-200">Ready to run high-dimensional forecasts?</h3>
+                    <p class="text-slate-400 text-xs mt-0.5">Return to the dashboard page to analyze your custom symbol.</p>
                 </div>
                 <a href="/" class="bg-gradient-to-r from-cyan-600 to-indigo-700 hover:from-cyan-500 hover:to-indigo-600 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all flex items-center space-x-2 text-xs">
                     <i class="fa-solid fa-arrow-left"></i>
@@ -223,8 +223,8 @@
     </main>
 
     <!-- Footer Area -->
-    <footer class="border-t border-slate-200 absolute bottom-0 left-0 right-0 h-16 flex items-center justify-center bg-white/80 backdrop-blur-sm z-30">
-        <p class="text-xs text-slate-400 tracking-wide font-medium">
+    <footer class="border-t border-slate-900 absolute bottom-0 left-0 right-0 h-16 flex items-center justify-center bg-[#0B0F19]/90 backdrop-blur-sm z-30">
+        <p class="text-xs text-slate-500 tracking-wide font-medium">
             &copy; 2026 StockPredict AI. Developed for educational and demonstration analytics only.
         </p>
     </footer>

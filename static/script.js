@@ -200,7 +200,7 @@ async function updateChartTimeRange(period, event) {
 function updateStockInfo(data) {
     document.getElementById('stock-symbol').textContent = data.ticker;
     document.getElementById('current-price').textContent = formatCurrency(data.current_price);
-    document.getElementById('prediction-confidence').innerHTML = `Confidence Score: <span class="text-cyan-600 font-semibold">${data.prediction_confidence}%</span>`;
+    document.getElementById('prediction-confidence').innerHTML = `Confidence Score: <span class="text-cyan-400 font-semibold">${data.prediction_confidence}%</span>`;
 
     // Map calculated live stats from backend
     const change = data.day_change;
@@ -209,7 +209,7 @@ function updateStockInfo(data) {
 
     const changeEl = document.getElementById('day-change');
     if (changeEl) {
-        changeEl.className = `text-lg font-bold flex items-center gap-1.5 ${isPositive ? 'text-emerald-600' : 'text-rose-600'}`;
+        changeEl.className = `text-lg font-bold flex items-center gap-1.5 ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`;
         changeEl.innerHTML = `
             <i class="fa-solid ${isPositive ? 'fa-arrow-trend-up' : 'fa-arrow-trend-down'}"></i>
             <span>${isPositive ? '+' : ''}${formatCurrency(change)} (${isPositive ? '+' : ''}${changePct.toFixed(2)}%)</span>
@@ -226,7 +226,7 @@ function renderChart(data, period) {
     const filteredHist = filterDataByPeriod(data.historical, period);
     const predictions = data.predictions;
 
-    // 1. Historical Data Trace (Glowing Sky Blue area)
+    // 1. Historical Data Trace (Glowing Neon Cyan area)
     const historicalTrace = {
         x: filteredHist.dates,
         y: filteredHist.prices,
@@ -234,16 +234,16 @@ function renderChart(data, period) {
         mode: 'lines',
         name: 'Historical Price',
         fill: 'tozeroy',
-        fillcolor: 'rgba(2, 132, 199, 0.04)', // Super soft translucent sky-600
+        fillcolor: 'rgba(0, 229, 255, 0.04)', // Luminous cyan glow fill
         line: {
-            color: '#0284C7', // Tailwind sky-600
+            color: '#00E5FF', // Vibrant neon cyan
             width: 2.5,
             shape: 'spline'
         },
         hovertemplate: '<b>Date</b>: %{x}<br><b>Price</b>: %{y:$$.2f}<extra></extra>'
     };
 
-    // 2. Prediction Data Trace (Neon Fuchsia dashed line with glowing markers)
+    // 2. Prediction Data Trace (Neon Pink dashed line with glowing markers)
     const lastHistDate = filteredHist.dates[filteredHist.dates.length - 1];
     const lastHistPrice = filteredHist.prices[filteredHist.prices.length - 1];
     
@@ -257,14 +257,14 @@ function renderChart(data, period) {
         mode: 'lines+markers',
         name: 'Model Forecast',
         line: {
-            color: '#DB2777', // Tailwind pink-600
+            color: '#FF2E93', // Vibrant hot pink
             dash: 'dash',
             width: 2.5
         },
         marker: {
             size: 6,
-            color: '#DB2777',
-            bordercolor: '#FFFFFF',
+            color: '#FF2E93',
+            bordercolor: '#0F172A',
             borderwidth: 1.5
         },
         hovertemplate: '<b>Forecast Date</b>: %{x}<br><b>Price</b>: %{y:$$.2f}<extra></extra>'
@@ -299,29 +299,32 @@ function renderChart(data, period) {
             name: 'SMA 20 (Trend)',
             visible: 'legendonly',
             line: {
-                color: '#4F46E5', // Tailwind indigo-600
+                color: '#8B5CF6', // Tailwind violet-500
                 width: 1.5,
                 dash: 'dot'
             }
         });
     }
 
-    // Modern Light Theme Layout
+    // Modern space-dark Layout
     const layout = {
+        font: {
+            color: '#E2E8F0' // Global silver slate-200 color for legends/ticks
+        },
         xaxis: {
             type: 'date',
-            gridcolor: 'rgba(203, 213, 225, 0.4)', // Soft slate-200 grids
+            gridcolor: 'rgba(51, 65, 85, 0.25)', // Translucent slate-700 grids
             showline: true,
-            linecolor: 'rgba(15, 23, 42, 0.1)',
-            tickfont: { color: '#475569' } // Slate-600
+            linecolor: 'rgba(255, 255, 255, 0.08)',
+            tickfont: { color: '#94A3B8' } // Slate-400
         },
         yaxis: {
-            gridcolor: 'rgba(203, 213, 225, 0.4)',
+            gridcolor: 'rgba(51, 65, 85, 0.25)',
             showline: true,
-            linecolor: 'rgba(15, 23, 42, 0.1)',
+            linecolor: 'rgba(255, 255, 255, 0.08)',
             tickprefix: '$',
             tickformat: ',.2f',
-            tickfont: { color: '#475569' }
+            tickfont: { color: '#94A3B8' }
         },
         plot_bgcolor: 'rgba(0,0,0,0)',
         paper_bgcolor: 'rgba(0,0,0,0)',
@@ -330,13 +333,13 @@ function renderChart(data, period) {
             orientation: 'h',
             y: 1.15,
             x: 0,
-            font: { color: '#1E293B' } // Slate-800
+            font: { color: '#E2E8F0' } // Slate-200
         },
         hovermode: 'x unified',
         hoverlabel: {
-            bgcolor: '#FFFFFF',
-            font: { color: '#0F172A', size: 13 },
-            bordercolor: '#CBD5E1'
+            bgcolor: '#0F172A', // Slate-900 hover box
+            font: { color: '#F1F5F9', size: 13 },
+            bordercolor: '#334155' // Slate-700 border
         },
         margin: { t: 20, l: 45, r: 15, b: 35 },
         transition: {
